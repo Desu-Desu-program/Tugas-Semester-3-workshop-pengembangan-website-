@@ -2,55 +2,63 @@
 
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LaporanPenjualanController;
+use App\Http\Controllers\ProdukController;
 
 Route::get('/posts', [PostController::class, 'index']);
 
 //acara 9
-Route::get('/hello', function () {    
-    return "Hello, World!"; 
+Route::get('/hello', function () {
+    return "Hello, World!";
 });
 
-Route::get('/user/{id}', function ($id) {    
-    return "User ID: " . $id; 
+Route::get('/user/{id}', function ($id) {
+    return "User ID: " . $id;
 });
 
-Route::get('/user/{name?}', function ($name = "DesuDesu") {    
-    return "Hello, " . $name; 
+Route::get('/user/{name?}', function ($name = "DesuDesu") {
+    return "Hello, " . $name;
 });
 
 Route::get('/dashboard', function () {
     return "Ini halaman Dashboard";
-})->name('dashboard'); 
+})->name('dashboard');
 
 //acara 10
-Route::prefix('admin')->group(function () {    
-    Route::get('/dashboard', function () {        
-        return "Admin Dashboard";    
-    });    
-    
-    Route::get('/users', function () {        
-        return "Admin Users";    
-    }); 
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return "Admin Dashboard";
+    });
 
-    Route::get('/coba', function(){
+    Route::get('/users', function () {
+        return "Admin Users";
+    });
+
+    Route::get('/coba', function () {
         return "mau coba apa?";
     });
-}); 
+});
 
-Route::get('/data', function () { return "GET Request"; }); 
-Route::post('/data', function () { return "POST Request"; }); 
-Route::put('/data', function () { return "PUT Request"; }); 
-Route::delete('/data', function () { return "DELETE Request"; }); 
-Route::patch('/data', function () { return "PATCH Request"; }); 
+Route::get('/data', function () {
+    return "GET Request"; });
+Route::post('/data', function () {
+    return "POST Request"; });
+Route::put('/data', function () {
+    return "PUT Request"; });
+Route::delete('/data', function () {
+    return "DELETE Request"; });
+Route::patch('/data', function () {
+    return "PATCH Request"; });
 
-Route::fallback(function () {    
-    return "404 - Not Found, yang bener nyarinya"; 
+Route::fallback(function () {
+    return "404 - Not Found, yang bener nyarinya";
 });
 
 //acara  11
 Route::get('/greeting', function () {
     $user = new class {
-        public function isAdmin() {
+        public function isAdmin()
+        {
             return true;
         }
     };
@@ -63,8 +71,14 @@ Route::get('/greeting', function () {
 //acara 12
 Route::get('/home', function () {
     $user = new class {
-        public function isAdmin() { return true; }
-        public function isEditor() { return false; }
+        public function isAdmin()
+        {
+            return true;
+        }
+        public function isEditor()
+        {
+            return false;
+        }
     };
     $status = 'pending';
 
@@ -116,3 +130,13 @@ Route::get('/produk-toko', function () {
     return view('daftar_produk', ['produk' => $data_produk]);
 });
 
+// Acara 13-14
+Route::get('/laporan', LaporanPenjualanController::class);
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Routing menuju Controller
+Route::get('/produk', [ProdukController::class, 'index']);
+Route::get('/produk/{id}', [ProdukController::class, 'show']);
