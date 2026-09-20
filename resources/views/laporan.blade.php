@@ -22,7 +22,6 @@
                 <th>No</th>
                 <th>Nama Produk</th>
                 <th>Jumlah Terjual</th>
-                <td><a href="{{ url('/produk/' . $item['id']) }}">Lihat Detail</a></td>
             </tr>
         </thead>
         <tbody>
@@ -35,7 +34,5 @@
             @endforeach
         </tbody>
     </table>
-
-
 </body>
 </html>

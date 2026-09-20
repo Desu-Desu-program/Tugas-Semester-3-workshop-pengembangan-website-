@@ -131,12 +131,13 @@ Route::get('/produk-toko', function () {
 });
 
 // Acara 13-14
+// Tugas mandiri
 Route::get('/laporan', LaporanPenjualanController::class);
 
+// Tugas lampiran
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Routing menuju Controller
 Route::get('/produk', [ProdukController::class, 'index']);
 Route::get('/produk/{id}', [ProdukController::class, 'show']);
