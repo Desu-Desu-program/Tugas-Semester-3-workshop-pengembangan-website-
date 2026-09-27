@@ -4,6 +4,10 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\FormController;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\QueryBuilderController;
+use App\Http\Controllers\EloquentController;
 
 Route::get('/posts', [PostController::class, 'index']);
 
@@ -134,6 +138,7 @@ Route::get('/produk-toko', function () {
 // Tugas mandiri
 Route::get('/laporan', LaporanPenjualanController::class);
 
+//tugas 15-16
 // Tugas lampiran
 Route::get('/', function () {
     return view('welcome');
@@ -141,3 +146,45 @@ Route::get('/', function () {
 
 Route::get('/produk', [ProdukController::class, 'index']);
 Route::get('/produk/{id}', [ProdukController::class, 'show']);
+
+//tugas ACARA 20
+Route::get('/form', function () {
+    return view('form'); 
+});
+Route::post('/submit', [FormController::class, 'submitForm']);
+
+//tugas acara 17
+Route::get('/coba-insert', function () {
+    DB::table('users')->insert([
+        'name' => 'Jane Doe',
+        'email' => 'janedoe@example.com',
+        'password' => bcrypt('password123')
+    ]);
+    return "Data Jane Doe berhasil masuk ke database!";
+});
+
+Route::get('/coba-tampil', function () {
+    $users = DB::table('users')->where('email', 'janedoe@example.com')->first();
+    return response()->json($users);
+});
+
+Route::get('/query/tampil', [QueryBuilderController::class, 'index']);
+Route::get('/query/tampil-spesifik', [QueryBuilderController::class, 'show']);
+Route::get('/query/ubah', [QueryBuilderController::class, 'update']);
+Route::get('/query/hapus', [QueryBuilderController::class, 'destroy']);
+Route::get('/query/agregat', [QueryBuilderController::class, 'agregat']);
+Route::get('/query/join', [QueryBuilderController::class, 'joinTabel']);
+Route::get('/query/tambah', [QueryBuilderController::class, 'store']);
+
+//ACARA 18
+Route::get('/eloquent/tambah-create', [EloquentController::class, 'store']);
+Route::get('/eloquent/tambah-save', [EloquentController::class, 'storeSave']);
+Route::get('/eloquent/tampil', [EloquentController::class, 'index']);
+Route::get('/eloquent/ubah', [EloquentController::class, 'update']);
+Route::get('/eloquent/hapus', [EloquentController::class, 'destroy']);
+
+//ACARA 19
+Route::get('/eloquent2/filter', [EloquentController::class, 'filterData']);
+Route::get('/eloquent2/hapus-sementara', [EloquentController::class, 'hapusSementara']);
+Route::get('/eloquent2/tampil-sampah', [EloquentController::class, 'tampilSampah']);
+Route::get('/eloquent2/kembalikan', [EloquentController::class, 'kembalikanData']);
