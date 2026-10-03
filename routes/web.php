@@ -10,6 +10,7 @@ use App\Http\Controllers\QueryBuilderController;
 use App\Http\Controllers\EloquentController;
 use App\Http\Middleware\Admin;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AuthController;
 
 
 // Route::get('/posts', [PostController::class, 'index']);
@@ -213,3 +214,19 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+//Acara 23
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group (function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
+
+require __DIR__.'/auth.php';
+
+//Acara 24
+Route::get('/post/{post}/edit', [PostController::class, 'edit'])->middleware('can:update,post');
+Route::put('/post/{post}', [PostController::class, 'update'])->middleware('can:update,post');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');

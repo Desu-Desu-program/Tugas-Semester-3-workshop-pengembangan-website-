@@ -49,13 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
-    // Mutator: Mengenkripsi password otomatis sebelum disimpan ke database
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
-    // Accessor: Menggabungkan first_name dan last_name saat data ditampilkan
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
