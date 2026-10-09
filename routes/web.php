@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\FormController;
@@ -230,3 +231,13 @@ require __DIR__.'/auth.php';
 Route::get('/post/{post}/edit', [PostController::class, 'edit'])->middleware('can:update,post');
 Route::put('/post/{post}', [PostController::class, 'update'])->middleware('can:update,post');
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+//Acara 25
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        api: __DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+        apiPrefix: '/api'
+    );
