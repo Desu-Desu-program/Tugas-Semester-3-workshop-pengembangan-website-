@@ -12,6 +12,8 @@ use App\Http\Controllers\EloquentController;
 use App\Http\Middleware\Admin;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 
 // Route::get('/posts', [PostController::class, 'index']);
@@ -232,12 +234,11 @@ Route::get('/post/{post}/edit', [PostController::class, 'edit'])->middleware('ca
 Route::put('/post/{post}', [PostController::class, 'update'])->middleware('can:update,post');
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
-//Acara 25
-return Application::configure(basePath: dirname(__DIR__))
-    ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
-        apiPrefix: '/api'
-    );
+
+//Acara 29 & 30
+Route::middleware('auth')->group(function () {
+    Route::resource('products', ProductController::class)->only(['index', 'create', 'store']);
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
+});
