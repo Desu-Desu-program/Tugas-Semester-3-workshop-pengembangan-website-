@@ -218,9 +218,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//Acara 23
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+//Acara 23  
 Route::middleware(['auth'])->group (function () {
     Route::get('/dashboard', function () {
         return view('dashboard');

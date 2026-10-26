@@ -9,6 +9,8 @@
     </style>
 </head>
 <body>
+    @include('partials.menu-buttons')
+
     <h1>Daftar Order</h1>
     <p><a href="{{ route('products.index') }}">Kembali ke Produk</a></p>
 

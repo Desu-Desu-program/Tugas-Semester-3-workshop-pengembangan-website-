@@ -10,6 +10,8 @@
     </style>
 </head>
 <body>
+    @include('partials.menu-buttons')
+
     <h1>Daftar Produk</h1>
 
     @if(session('success'))

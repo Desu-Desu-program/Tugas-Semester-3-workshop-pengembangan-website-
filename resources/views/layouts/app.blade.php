@@ -31,10 +31,7 @@
 
         <!-- Page Content -->
         <main>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit">Logout</button>
-            </form>
+            {{ $slot }}
         </main>
     </div>
 </body>
