@@ -34,6 +34,8 @@
             {{ $slot }}
         </main>
     </div>
+
+    @include('partials.order-notification')
 </body>
 
 </html>
